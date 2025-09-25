@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Ciber Modelo</string>
+
+    <string name="error_message">Algo salió mal, intentalo de nuevo</string>
+    <string name="retry">Reintentar</string>
+    <string name="user_does_not_exist">El usuario no existe</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Login</string>
+    <string name="create_an_account">Crear un cuenta</string>
+    <string name="user_or_password_incorrect">Usuario o contraseña incorrecta</string>
 </resources>
