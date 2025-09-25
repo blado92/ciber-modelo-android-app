@@ -1,14 +1,14 @@
 package com.cibermodelo.domain.usecase
 
-import com.cibermodelo.base.common.Resource
-import com.cibermodelo.domain.model.User
+import com.cibermodelo.base.common.ResourceApi
+import com.cibermodelo.base.model.User
 import com.cibermodelo.domain.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlin.coroutines.CoroutineContext
 
-class LoginUseCaseImpl(
+class LoginUseCaseImpl constructor(
     private val loginRepository: LoginRepository,
     private val dispatcher: CoroutineContext
 ) : LoginUseCase {
@@ -16,10 +16,10 @@ class LoginUseCaseImpl(
     override suspend fun invoke(
         email: String,
         password: String
-    ): Flow<Resource<User>> {
+    ): Flow<ResourceApi<User>> {
         return flow {
             loginRepository.login(email, password)
-                .collect { response: Resource<User> ->
+                .collect { response: ResourceApi<User> ->
                     emit(response)
                 }
         }.flowOn(dispatcher)

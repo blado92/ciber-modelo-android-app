@@ -1,9 +1,8 @@
 package com.cibermodelo.data.mappers
 
-import com.cibermodelo.domain.model.User
-import com.cibermodelo.requestmanager.model.UserResponse
+import com.cibermodelo.base.model.User
 
-fun UserResponse.toUser() = User(
+fun User.toUser() = User(
     id,
     name,
     lastName,

@@ -1,10 +1,8 @@
-package com.cibermodelo.data.di
+package com.cibermodelo.requestmanager.di
 
 import com.cibermodelo.data.apiservice.UserApiService
-import com.cibermodelo.data.apiservice.UserApiServiceImpl
-import com.cibermodelo.data.repository.LoginRepositoryImpl
-import com.cibermodelo.domain.repository.LoginRepository
 import com.cibermodelo.requestmanager.ApiService
+import com.cibermodelo.requestmanager.apiservice.UserApiServiceImpl
 import com.cibermodelo.requestmanager.manager.ServiceGenerator
 import dagger.Module
 import dagger.Provides
@@ -12,11 +10,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Named
 import javax.inject.Singleton
-import kotlin.coroutines.CoroutineContext
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object RequestModule {
 
     @Provides
     @Singleton
@@ -32,15 +29,6 @@ object AppModule {
         service: ApiService
     ): UserApiService {
         return UserApiServiceImpl(service)
-    }
-
-    @Provides
-    @Singleton
-    fun provideLoginRepository(
-        userApiService: UserApiService,
-        dispatcher: CoroutineContext
-    ) : LoginRepository {
-        return LoginRepositoryImpl(userApiService, dispatcher)
     }
 
 }

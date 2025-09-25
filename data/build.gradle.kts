@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id("dagger.hilt.android.plugin")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -33,10 +35,8 @@ android {
 }
 
 dependencies {
-
     implementation(project(":base"))
     implementation(project(":domain"))
-    implementation(project(":framework:requestmanager"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -47,4 +47,6 @@ dependencies {
 
     //Hilt
     implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
 }

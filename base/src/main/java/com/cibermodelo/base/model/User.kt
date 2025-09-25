@@ -1,4 +1,4 @@
-package com.cibermodelo.domain.model
+package com.cibermodelo.base.model
 
 data class User(
     val id: Int? = null,
