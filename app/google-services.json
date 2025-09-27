@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "900421739483",
+    "project_id": "ciber-modelo",
+    "storage_bucket": "ciber-modelo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900421739483:android:5d86b3c52e5fc66210bdfe",
+        "android_client_info": {
+          "package_name": "com.cibermodelo.cibermodeloapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClv68Tv0_GTLwjuLRFBwOUUbRZuQbu5aQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

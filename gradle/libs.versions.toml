@@ -1,6 +1,7 @@
 [versions]
 agp = "8.13.0"
 converterMoshi = "3.0.0"
+firebaseBom = "34.3.0"
 hiltAndroid = "2.57.1"
 kotlin = "2.0.21"
 coreKtx = "1.10.1"
@@ -19,6 +20,8 @@ runtimeLivedata = "1.9.1"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterMoshi" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "converterMoshi" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
