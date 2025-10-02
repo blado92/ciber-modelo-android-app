@@ -1,4 +1,4 @@
-package com.cibermodelo.cibermodeloapplication
+package com.cibermodelo.cibermodeloapplication.views.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

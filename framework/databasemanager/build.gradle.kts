@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.cibermodelo.data"
+    namespace = "com.cibermodelo.databasemanager"
     compileSdk = 36
 
     defaultConfig {
@@ -36,8 +36,6 @@ android {
 
 dependencies {
     implementation(project(":base"))
-    implementation(project(":domain"))
-    implementation(project(":framework:databasemanager"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -50,4 +48,14 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
+    //Room
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+
+    //Moshi
+    implementation(libs.moshi)
+    ksp(libs.moshi.kotlin.codegen)
+    implementation(libs.moshi.adapters)
+    implementation(libs.kotlin.reflect)
 }

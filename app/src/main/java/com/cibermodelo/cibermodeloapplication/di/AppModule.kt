@@ -2,6 +2,9 @@ package com.cibermodelo.cibermodeloapplication.di
 
 import com.cibermodelo.cibermodeloapplication.BuildConfig
 import com.cibermodelo.domain.repository.LoginRepository
+import com.cibermodelo.domain.repository.UserRepository
+import com.cibermodelo.domain.usecase.IsUserLoggedInUseCase
+import com.cibermodelo.domain.usecase.IsUserLoggedInUseCaseImpl
 import com.cibermodelo.domain.usecase.LoginUseCase
 import com.cibermodelo.domain.usecase.LoginUseCaseImpl
 import dagger.Module
@@ -30,7 +33,15 @@ object AppModule {
     @Singleton
     fun provideLoginUseCase(
         loginRepository: LoginRepository,
+        userRepository: UserRepository,
         dispatcher: CoroutineContext
-    ): LoginUseCase = LoginUseCaseImpl(loginRepository, dispatcher)
+    ): LoginUseCase = LoginUseCaseImpl(loginRepository, userRepository, dispatcher)
+
+    @Provides
+    @Singleton
+    fun provideIsUserLoggedInUseCase(
+        userRepository: UserRepository,
+        dispatcher: CoroutineContext
+    ): IsUserLoggedInUseCase = IsUserLoggedInUseCaseImpl(userRepository, dispatcher)
 
 }

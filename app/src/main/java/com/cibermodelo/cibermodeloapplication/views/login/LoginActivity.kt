@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import com.cibermodelo.cibermodeloapplication.MainActivity
+import com.cibermodelo.cibermodeloapplication.views.main.MainActivity
 import com.cibermodelo.cibermodeloapplication.ui.theme.CiberModeloApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
