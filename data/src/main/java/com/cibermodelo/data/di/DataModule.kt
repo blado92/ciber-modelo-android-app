@@ -2,7 +2,10 @@ package com.cibermodelo.data.di
 
 import com.cibermodelo.data.apiservice.UserApiService
 import com.cibermodelo.data.repository.LoginRepositoryImpl
+import com.cibermodelo.data.repository.UserRepositoryImpl
+import com.cibermodelo.databasemanager.daos.UserDao
 import com.cibermodelo.domain.repository.LoginRepository
+import com.cibermodelo.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +24,14 @@ object DataModule {
         dispatcher: CoroutineContext
     ) : LoginRepository {
         return LoginRepositoryImpl(userApiService, dispatcher)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(
+        userDao: UserDao
+    ) : UserRepository {
+        return UserRepositoryImpl(userDao)
     }
 
 }
