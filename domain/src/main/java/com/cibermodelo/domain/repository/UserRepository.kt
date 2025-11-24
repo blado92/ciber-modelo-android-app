@@ -1,7 +1,6 @@
 package com.cibermodelo.domain.repository
 
 import com.cibermodelo.base.model.User
-import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     suspend fun getUserFromDatabase() : User?

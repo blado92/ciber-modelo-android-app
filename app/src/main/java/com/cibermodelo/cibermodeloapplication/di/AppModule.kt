@@ -1,8 +1,11 @@
 package com.cibermodelo.cibermodeloapplication.di
 
 import com.cibermodelo.cibermodeloapplication.BuildConfig
+import com.cibermodelo.domain.repository.DeceasedRepository
 import com.cibermodelo.domain.repository.LoginRepository
 import com.cibermodelo.domain.repository.UserRepository
+import com.cibermodelo.domain.usecase.GetDeceasedByUserUseCase
+import com.cibermodelo.domain.usecase.GetDeceasedByUserUseCaseImpl
 import com.cibermodelo.domain.usecase.IsUserLoggedInUseCase
 import com.cibermodelo.domain.usecase.IsUserLoggedInUseCaseImpl
 import com.cibermodelo.domain.usecase.LoginUseCase
@@ -43,5 +46,13 @@ object AppModule {
         userRepository: UserRepository,
         dispatcher: CoroutineContext
     ): IsUserLoggedInUseCase = IsUserLoggedInUseCaseImpl(userRepository, dispatcher)
+
+    @Provides
+    @Singleton
+    fun provideGetDeceasedByUserUseCase(
+        deceasedRepository: DeceasedRepository,
+        userRepository: UserRepository,
+        dispatcher: CoroutineContext
+    ): GetDeceasedByUserUseCase = GetDeceasedByUserUseCaseImpl(deceasedRepository, userRepository, dispatcher)
 
 }
