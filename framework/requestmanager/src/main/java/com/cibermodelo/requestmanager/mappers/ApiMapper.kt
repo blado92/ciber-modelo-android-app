@@ -3,11 +3,13 @@ package com.cibermodelo.requestmanager.mappers
 import com.cibermodelo.base.common.ResourceApi
 import com.cibermodelo.base.model.AccessLevel
 import com.cibermodelo.base.model.Deceased
+import com.cibermodelo.base.model.Field
 import com.cibermodelo.base.model.QueryTypes
 import com.cibermodelo.base.model.Role
 import com.cibermodelo.base.model.User
 import com.cibermodelo.requestmanager.model.AccessLevelResponse
 import com.cibermodelo.requestmanager.model.DeceasedResponse
+import com.cibermodelo.requestmanager.model.FieldResponse
 import com.cibermodelo.requestmanager.model.QueryTypesResponse
 import com.cibermodelo.requestmanager.model.RoleResponse
 import com.cibermodelo.requestmanager.model.UserResponse
@@ -65,3 +67,10 @@ fun QueryTypesResponse.toQueryTypes() = QueryTypes(
 )
 
 fun List<QueryTypesResponse>.toQueryTypesList() = map(QueryTypesResponse::toQueryTypes)
+
+fun FieldResponse.toField() = Field(
+    id = id,
+    name = name
+)
+
+fun List<FieldResponse>.toFieldList() = map(FieldResponse::toField)

@@ -2,10 +2,13 @@ package com.cibermodelo.cibermodeloapplication.di
 
 import com.cibermodelo.cibermodeloapplication.BuildConfig
 import com.cibermodelo.domain.repository.DeceasedRepository
+import com.cibermodelo.domain.repository.FieldRepository
 import com.cibermodelo.domain.repository.LoginRepository
 import com.cibermodelo.domain.repository.UserRepository
 import com.cibermodelo.domain.usecase.GetDeceasedByUserUseCase
 import com.cibermodelo.domain.usecase.GetDeceasedByUserUseCaseImpl
+import com.cibermodelo.domain.usecase.GetFieldsByQueryTypeAndAccessLevelUseCase
+import com.cibermodelo.domain.usecase.GetFieldsByQueryTypeAndAccessLevelUseCaseImpl
 import com.cibermodelo.domain.usecase.GetQueryTypesByUserAndDeceasedUseCase
 import com.cibermodelo.domain.usecase.GetQueryTypesByUserAndDeceasedUseCaseImpl
 import com.cibermodelo.domain.usecase.IsUserLoggedInUseCase
@@ -66,5 +69,16 @@ object AppModule {
         dispatcher: CoroutineContext
     ): GetQueryTypesByUserAndDeceasedUseCase =
         GetQueryTypesByUserAndDeceasedUseCaseImpl(deceasedRepository, userRepository, dispatcher)
+
+    @Provides
+    @Singleton
+    fun provideGetFieldsByQueryTypeAndAccessLevelUseCase(
+        fieldRepository: FieldRepository,
+        dispatcher: CoroutineContext
+    ): GetFieldsByQueryTypeAndAccessLevelUseCase =
+        GetFieldsByQueryTypeAndAccessLevelUseCaseImpl(
+            fieldRepository,
+            dispatcher
+        )
 
 }

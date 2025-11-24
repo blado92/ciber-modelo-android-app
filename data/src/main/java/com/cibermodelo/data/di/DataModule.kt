@@ -1,12 +1,15 @@
 package com.cibermodelo.data.di
 
 import com.cibermodelo.data.apiservice.DeceasedApiService
+import com.cibermodelo.data.apiservice.FieldApiService
 import com.cibermodelo.data.apiservice.UserApiService
 import com.cibermodelo.data.repository.DeceasedRepositoryImpl
+import com.cibermodelo.data.repository.FieldRepositoryImpl
 import com.cibermodelo.data.repository.LoginRepositoryImpl
 import com.cibermodelo.data.repository.UserRepositoryImpl
 import com.cibermodelo.databasemanager.daos.UserDao
 import com.cibermodelo.domain.repository.DeceasedRepository
+import com.cibermodelo.domain.repository.FieldRepository
 import com.cibermodelo.domain.repository.LoginRepository
 import com.cibermodelo.domain.repository.UserRepository
 import dagger.Module
@@ -44,6 +47,15 @@ object DataModule {
         dispatcher: CoroutineContext
     ) : DeceasedRepository {
         return DeceasedRepositoryImpl(deceasedApiService, dispatcher)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFieldRepository(
+        fieldApiService: FieldApiService,
+        dispatcher: CoroutineContext
+    ) : FieldRepository {
+        return FieldRepositoryImpl(fieldApiService, dispatcher)
     }
 
 }
