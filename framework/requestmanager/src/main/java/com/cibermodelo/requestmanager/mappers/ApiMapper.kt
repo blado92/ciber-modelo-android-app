@@ -1,9 +1,13 @@
 package com.cibermodelo.requestmanager.mappers
 
 import com.cibermodelo.base.common.ResourceApi
+import com.cibermodelo.base.model.Deceased
 import com.cibermodelo.base.model.User
+import com.cibermodelo.requestmanager.model.DeceasedResponse
 import com.cibermodelo.requestmanager.model.UserResponse
 import retrofit2.Response
+import java.util.Date
+import kotlin.Int
 
 fun <T> Response<T>.toResource(): ResourceApi<T> {
     return if (this.isSuccessful) {
@@ -24,3 +28,16 @@ fun UserResponse.toUser() = User(
     lastName,
     email
 )
+
+fun DeceasedResponse.toDeceased() = Deceased(
+    id,
+    name,
+    lastName,
+    email,
+    address,
+    eps,
+    birthday,
+    deceasedDate
+)
+
+fun List<DeceasedResponse>.toDeceasedList() = map(DeceasedResponse::toDeceased)

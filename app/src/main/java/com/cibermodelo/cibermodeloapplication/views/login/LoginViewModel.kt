@@ -23,6 +23,7 @@ class LoginViewModel @Inject constructor(
     fun loginUser(email: String, password: String) {
         _login.value = Resource.Loading()
         viewModelScope.launch {
+
             loginUserUseCase(email, password).collect { response ->
                 if(response is ResourceApi.Success) {
                     _login.value = Resource.Success(response.data)

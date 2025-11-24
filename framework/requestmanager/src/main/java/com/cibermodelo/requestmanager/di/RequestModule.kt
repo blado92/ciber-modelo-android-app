@@ -1,7 +1,9 @@
 package com.cibermodelo.requestmanager.di
 
+import com.cibermodelo.data.apiservice.DeceasedApiService
 import com.cibermodelo.data.apiservice.UserApiService
 import com.cibermodelo.requestmanager.ApiService
+import com.cibermodelo.requestmanager.apiservice.DeceasedApiServiceImpl
 import com.cibermodelo.requestmanager.apiservice.UserApiServiceImpl
 import com.cibermodelo.requestmanager.manager.ServiceGenerator
 import dagger.Module
@@ -29,6 +31,14 @@ object RequestModule {
         service: ApiService
     ): UserApiService {
         return UserApiServiceImpl(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeceasedApiService(
+        service: ApiService
+    ): DeceasedApiService {
+        return DeceasedApiServiceImpl(service)
     }
 
 }
