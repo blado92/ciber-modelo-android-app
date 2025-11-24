@@ -6,6 +6,8 @@ import com.cibermodelo.domain.repository.LoginRepository
 import com.cibermodelo.domain.repository.UserRepository
 import com.cibermodelo.domain.usecase.GetDeceasedByUserUseCase
 import com.cibermodelo.domain.usecase.GetDeceasedByUserUseCaseImpl
+import com.cibermodelo.domain.usecase.GetQueryTypesByUserAndDeceasedUseCase
+import com.cibermodelo.domain.usecase.GetQueryTypesByUserAndDeceasedUseCaseImpl
 import com.cibermodelo.domain.usecase.IsUserLoggedInUseCase
 import com.cibermodelo.domain.usecase.IsUserLoggedInUseCaseImpl
 import com.cibermodelo.domain.usecase.LoginUseCase
@@ -53,6 +55,16 @@ object AppModule {
         deceasedRepository: DeceasedRepository,
         userRepository: UserRepository,
         dispatcher: CoroutineContext
-    ): GetDeceasedByUserUseCase = GetDeceasedByUserUseCaseImpl(deceasedRepository, userRepository, dispatcher)
+    ): GetDeceasedByUserUseCase =
+        GetDeceasedByUserUseCaseImpl(deceasedRepository, userRepository, dispatcher)
+
+    @Provides
+    @Singleton
+    fun provideGetQueryTypesByUserAndDeceasedUseCase(
+        deceasedRepository: DeceasedRepository,
+        userRepository: UserRepository,
+        dispatcher: CoroutineContext
+    ): GetQueryTypesByUserAndDeceasedUseCase =
+        GetQueryTypesByUserAndDeceasedUseCaseImpl(deceasedRepository, userRepository, dispatcher)
 
 }
