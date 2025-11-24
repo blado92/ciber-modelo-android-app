@@ -1,6 +1,7 @@
 package com.cibermodelo.requestmanager
 
 import com.cibermodelo.requestmanager.model.DeceasedResponse
+import com.cibermodelo.requestmanager.model.FieldResponse
 import com.cibermodelo.requestmanager.model.QueryTypesResponse
 import com.cibermodelo.requestmanager.model.UserResponse
 import retrofit2.Response
@@ -24,4 +25,10 @@ interface ApiService {
         @Query("userId") userId: Int,
         @Query("deceasedId") deceasedId: Int
     ) : Response<List<QueryTypesResponse>>
+
+    @GET("fields")
+    suspend fun fieldByQueryTypeIdAndAccessLevel(
+        @Query("queryTypeId") queryTypeId: Int,
+        @Query("accessLevelId") accessLevelId: Int
+    ) : Response<List<FieldResponse>>
 }
