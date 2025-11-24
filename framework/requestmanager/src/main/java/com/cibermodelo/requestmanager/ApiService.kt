@@ -1,6 +1,7 @@
 package com.cibermodelo.requestmanager
 
 import com.cibermodelo.requestmanager.model.DeceasedResponse
+import com.cibermodelo.requestmanager.model.QueryTypesResponse
 import com.cibermodelo.requestmanager.model.UserResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -17,4 +18,10 @@ interface ApiService {
     suspend fun deceasedByUser(
         @Query("userId") userId: Int
     ) : Response<List<DeceasedResponse>>
+
+    @GET("deceased/querytypes")
+    suspend fun queryTypesByUserAndDeceased(
+        @Query("userId") userId: Int,
+        @Query("deceasedId") deceasedId: Int
+    ) : Response<List<QueryTypesResponse>>
 }
