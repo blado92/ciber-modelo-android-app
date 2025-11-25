@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.cibermodelo.cibermodeloapplication"
-        minSdk = 30
+        minSdk = 33
         targetSdk = 36
         versionCode = 100001
         versionName = "1.0.1"

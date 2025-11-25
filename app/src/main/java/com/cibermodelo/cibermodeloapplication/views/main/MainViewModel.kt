@@ -21,7 +21,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getDeceasedByUserUseCase: GetDeceasedByUserUseCase,
-    private val getQueryTypesByUserAndDeceasedUseCase: GetQueryTypesByUserAndDeceasedUseCase,
     private val getFieldsByQueryTypeAndAccessLevelUseCase: GetFieldsByQueryTypeAndAccessLevelUseCase
 ) : ViewModel() {
 
@@ -43,21 +42,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private val _queryTypes = MutableLiveData<Resource<List<QueryTypes>?>?>()
-    val queryTypes: LiveData<Resource<List<QueryTypes>?>?> = _queryTypes
 
-    fun getQueryTypesByDeceased(deceased: Int) {
-        _queryTypes.value = Resource.Loading()
-        viewModelScope.launch {
-            getQueryTypesByUserAndDeceasedUseCase(deceased).collect { response ->
-                if(response is ResourceApi.Success) {
-                    _queryTypes.value = Resource.Success(response.data)
-                } else {
-                    _queryTypes.value = Resource.Error(response.errorCode ?: 1, response.errorMessage ?: "Error")
-                }
-            }
-        }
-    }
 
     private val _queryFields = MutableLiveData<Resource<List<Field>?>?>()
     val fields: LiveData<Resource<List<Field>?>?> = _queryFields
