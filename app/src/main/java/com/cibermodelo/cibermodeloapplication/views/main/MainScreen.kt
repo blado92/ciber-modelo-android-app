@@ -27,6 +27,7 @@ import com.cibermodelo.base.common.Resource
 import com.cibermodelo.base.model.Deceased
 import com.cibermodelo.cibermodeloapplication.R
 import com.cibermodelo.cibermodeloapplication.common.LoadingMessage
+import com.cibermodelo.cibermodeloapplication.ui.components.MainScreenEmptyContent
 
 @Composable
 fun MainScreen(
@@ -36,7 +37,7 @@ fun MainScreen(
 ) {
     when (val response = mainUiState.content) {
         is Resource.Error<*> -> {
-            MainScreenEmptyContent()
+            MainScreenEmptyContent(stringResource(R.string.deceased_list_empty))
         }
         is Resource.Loading<*> -> {
             LoadingMessage()
@@ -49,14 +50,14 @@ fun MainScreen(
                     deceasedSelected = deceasedSelected
                 )
             } ?: run {
-                MainScreenEmptyContent()
+                MainScreenEmptyContent(stringResource(R.string.deceased_list_empty))
             }
         }
     }
 }
 
 @Composable
-private fun DeceasedComponent(
+fun DeceasedComponent(
     deceased: Deceased,
     deceasedSelected: () -> Unit
 ) {
@@ -144,35 +145,5 @@ private fun MainScreenContentPreview() {
         content = deceased
     ) {
 
-    }
-}
-
-@Composable
-private fun MainScreenEmptyContent() {
-    Column(
-        modifier = Modifier.fillMaxSize().background(White)
-    ) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(100.dp)
-                .padding(16.dp),
-            colors = cardColors(White),
-            elevation = cardElevation(6.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    fontSize = 16.sp,
-                    text = stringResource(R.string.deceased_list_empty),
-                    color = Black
-                )
-            }
-        }
     }
 }
