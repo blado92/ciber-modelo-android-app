@@ -1,4 +1,4 @@
-package com.cibermodelo.cibermodeloapplication.views.queryTypes
+package com.cibermodelo.cibermodeloapplication.views.deceasedInformation
 
 import android.content.Context
 import android.content.Intent
@@ -12,55 +12,46 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.cibermodelo.base.model.Deceased
-import com.cibermodelo.base.model.QueryTypes
 import com.cibermodelo.cibermodeloapplication.ui.theme.CiberModeloApplicationTheme
-import com.cibermodelo.cibermodeloapplication.views.deceasedInformation.DeceasedInformationActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class QueryTypesActivity : ComponentActivity() {
+class DeceasedInformationActivity : ComponentActivity() {
 
     companion object {
         private const val DECEASED_INFORMATION = "deceasedInformation"
+        private const val QUERY_TYPE_ID = "queryTypeId"
+        private const val ACCESS_LEVEL_ID = "accessLevelId"
 
-        fun getIntent(context: Context, deceased: Deceased) =
-            Intent(context, QueryTypesActivity::class.java).apply {
+        fun getIntent(context: Context, deceased: Deceased, queryTypeId: Int, accessLevelId: Int) =
+            Intent(context, DeceasedInformationActivity::class.java).apply {
                 putExtra(DECEASED_INFORMATION, deceased)
+                putExtra(QUERY_TYPE_ID, queryTypeId)
+                putExtra(ACCESS_LEVEL_ID, accessLevelId)
             }
     }
 
-    private val viewModel: QueryTypesViewModel by viewModels { defaultViewModelProviderFactory }
-    private lateinit var deceased: Deceased
+    private val viewModel: DeceasedInformationViewModel by viewModels { defaultViewModelProviderFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        deceased = intent.getParcelableExtra(DECEASED_INFORMATION, Deceased::class.java)!!
+        val deceased = intent.getParcelableExtra(DECEASED_INFORMATION, Deceased::class.java)
         setContent {
             CiberModeloApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    QueryTypesScreen(
+                    DeceasedInformationScreen(
                         modifier = Modifier.padding(innerPadding),
-                        queryTypesUiState = viewModel.queryTypes,
-                        deceased = deceased,
-                        queryTypeSelected = { onQueryTypeSelected(it) }
+                        deceasedInformationUiState = viewModel.fields,
+                        deceased = deceased!!
                     )
                 }
             }
         }
 
-        viewModel.getQueryTypesByDeceased(deceased.id)
-    }
-
-    private fun onQueryTypeSelected(queryTypes: QueryTypes) {
-        startActivity(
-            DeceasedInformationActivity.getIntent(
-                this,
-                deceased,
-                queryTypes.id,
-                queryTypes.accessLevel.id
-            )
-        )
+        val queryTypeId = intent.getIntExtra(QUERY_TYPE_ID, 0)
+        val accessLevelId = intent.getIntExtra(ACCESS_LEVEL_ID, 0)
+        viewModel.getFieldsByQueryTypeAndAccessLevel(queryTypeId = queryTypeId, accessLevelId = accessLevelId)
     }
 
 }

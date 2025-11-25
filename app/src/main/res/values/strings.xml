@@ -14,4 +14,6 @@
     <string name="query_type_list_empty">No hay consultas disponibles para este usuario y fallecido</string>
     <string name="query_type_deceased_label">Fallecido:</string>
     <string name="query_type_title">Consultas disponibles:</string>
+    <string name="deceased_information_empty">No hay información disponible para este fallecido</string>
+    <string name="deceased_information_title">Información disponible</string>
 </resources>

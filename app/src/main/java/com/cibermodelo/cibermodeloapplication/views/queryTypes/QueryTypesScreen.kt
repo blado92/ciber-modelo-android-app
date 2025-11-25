@@ -163,7 +163,16 @@ private fun QueryTypesScreenContentPreview() {
         address = "miAddress",
         eps = "NuevaEps",
         birthday = "2025-11-07T00:00:00",
-        deceasedDate = "2025-11-07T00:00:00"
+        deceasedDate = "2025-11-07T00:00:00",
+        arl = String(),
+        bankingInstitution = String(),
+        identityDocument = 0,
+        identityDocumentType = String(),
+        maritalStatus = String(),
+        nationality = String(),
+        retirementFund = String(),
+        severanceFund = String(),
+        gender = String()
     )
     val queryTypes = listOf(
         QueryTypes(
