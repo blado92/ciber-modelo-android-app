@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults.cardColors
@@ -16,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -24,20 +24,19 @@ fun MainScreenEmptyContent(
     label: String
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().background(White)
+        modifier = Modifier.fillMaxSize().background(White),
+        verticalArrangement = Arrangement.Center
     ) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
                 .padding(16.dp),
             colors = cardColors(White),
             elevation = cardElevation(6.dp)
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp),
+                    .padding(16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -49,4 +48,12 @@ fun MainScreenEmptyContent(
             }
         }
     }
+}
+
+@Composable
+@Preview(showBackground = true, showSystemUi = true)
+private fun MainScreenEmptyContentPreview() {
+    MainScreenEmptyContent(
+        label = "No hay información disponible para este fallecido"
+    )
 }

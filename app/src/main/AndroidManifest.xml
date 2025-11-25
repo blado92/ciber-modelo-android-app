@@ -37,6 +37,9 @@
         <activity android:name=".views.queryTypes.QueryTypesActivity"
             android:theme="@style/Theme.CiberModeloApplication"
             android:exported="true"/>
+        <activity android:name=".views.deceasedInformation.DeceasedInformationActivity"
+            android:theme="@style/Theme.CiberModeloApplication"
+            android:exported="true"/>
     </application>
 
 </manifest>

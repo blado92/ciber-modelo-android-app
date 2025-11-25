@@ -48,6 +48,8 @@ dependencies {
     //Retrofit
     implementation(libs.converter.moshi)
     implementation(libs.converter.gson)
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
 
     //Hilt
     implementation(libs.hilt.android)
