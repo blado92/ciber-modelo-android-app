@@ -23,7 +23,7 @@ fun LoadingMessage() {
 
 @Preview(showBackground = true)
 @Composable
-fun LoadingMessagePreview() {
+private fun LoadingMessagePreview() {
     CiberModeloApplicationTheme {
         LoadingMessage()
     }

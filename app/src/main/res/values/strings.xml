@@ -9,4 +9,6 @@
     <string name="login">Login</string>
     <string name="create_an_account">Crear un cuenta</string>
     <string name="user_or_password_incorrect">Usuario o contraseña incorrecta</string>
+    <string name="deceased_list_title">Fallecidos asignados</string>
+    <string name="deceased_list_empty">No hay fallecidos asignados a este usuario</string>
 </resources>
