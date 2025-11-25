@@ -1,12 +1,14 @@
 package com.cibermodelo.cibermodeloapplication.views.main
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cibermodelo.base.common.Resource
 import com.cibermodelo.base.common.ResourceApi
-import com.cibermodelo.base.model.Deceased
 import com.cibermodelo.base.model.Field
 import com.cibermodelo.base.model.QueryTypes
 import com.cibermodelo.domain.usecase.GetDeceasedByUserUseCase
@@ -23,17 +25,19 @@ class MainViewModel @Inject constructor(
     private val getFieldsByQueryTypeAndAccessLevelUseCase: GetFieldsByQueryTypeAndAccessLevelUseCase
 ) : ViewModel() {
 
-    private val _deceased = MutableLiveData<Resource<List<Deceased>?>?>()
-    val deceased: LiveData<Resource<List<Deceased>?>?> = _deceased
+    var deceased by mutableStateOf(MainUiState(Resource.Loading()))
 
     fun getDeceasedByUser() {
-        _deceased.value = Resource.Loading()
         viewModelScope.launch {
             getDeceasedByUserUseCase().collect { response ->
                 if(response is ResourceApi.Success) {
-                    _deceased.value = Resource.Success(response.data)
+                    response.data?.let { data ->
+                        deceased = MainUiState(Resource.Success(data))
+                    } ?: run {
+                        deceased = MainUiState(Resource.Error(response.errorCode ?: 1, response.errorMessage ?: "Error"))
+                    }
                 } else {
-                    _deceased.value = Resource.Error(response.errorCode ?: 1, response.errorMessage ?: "Error")
+                    deceased = MainUiState(Resource.Error(response.errorCode ?: 1, response.errorMessage ?: "Error"))
                 }
             }
         }
