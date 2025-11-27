@@ -15,8 +15,8 @@ android {
         applicationId = "com.cibermodelo.cibermodeloapplication"
         minSdk = 33
         targetSdk = 36
-        versionCode = 100002
-        versionName = "1.0.2"
+        versionCode = 100003
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
