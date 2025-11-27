@@ -2,6 +2,7 @@ package com.cibermodelo.data.repository
 
 import com.cibermodelo.base.common.ResourceApi
 import com.cibermodelo.base.model.Deceased
+import com.cibermodelo.base.model.Document
 import com.cibermodelo.base.model.QueryTypes
 import com.cibermodelo.data.apiservice.DeceasedApiService
 import com.cibermodelo.domain.repository.DeceasedRepository
@@ -31,6 +32,15 @@ class DeceasedRepositoryImpl @Inject constructor(
     ): Flow<ResourceApi<List<QueryTypes>>> {
         return flow {
             deceasedApiService.queryTypesByUserAndDeceased(userId, deceased)
+                .collect {
+                    emit(it)
+                }
+        }.flowOn(dispatcher)
+    }
+
+    override suspend fun documentsByDeceased(deceasedId: Int): Flow<ResourceApi<List<Document>>> {
+        return flow {
+            deceasedApiService.documentsByDeceased(deceasedId)
                 .collect {
                     emit(it)
                 }

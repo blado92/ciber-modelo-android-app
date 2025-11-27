@@ -15,5 +15,7 @@
     <string name="query_type_deceased_label">Fallecido:</string>
     <string name="query_type_title">Consultas disponibles:</string>
     <string name="deceased_information_empty">No hay información disponible para este fallecido</string>
-    <string name="deceased_information_title">Información disponible</string>
+    <string name="deceased_information_title">Información disponible:</string>
+    <string name="deceased_documents_empty">No hay documentos disponibles para este fallecido</string>
+    <string name="deceased_documents_title">Documentos disponibles:</string>
 </resources>

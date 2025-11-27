@@ -7,6 +7,8 @@ import com.cibermodelo.domain.repository.LoginRepository
 import com.cibermodelo.domain.repository.UserRepository
 import com.cibermodelo.domain.usecase.GetDeceasedByUserUseCase
 import com.cibermodelo.domain.usecase.GetDeceasedByUserUseCaseImpl
+import com.cibermodelo.domain.usecase.GetDocumentsByDeceasedIdUseCase
+import com.cibermodelo.domain.usecase.GetDocumentsByDeceasedIdUseCaseImpl
 import com.cibermodelo.domain.usecase.GetFieldsByQueryTypeAndAccessLevelUseCase
 import com.cibermodelo.domain.usecase.GetFieldsByQueryTypeAndAccessLevelUseCaseImpl
 import com.cibermodelo.domain.usecase.GetQueryTypesByUserAndDeceasedUseCase
@@ -78,6 +80,17 @@ object AppModule {
     ): GetFieldsByQueryTypeAndAccessLevelUseCase =
         GetFieldsByQueryTypeAndAccessLevelUseCaseImpl(
             fieldRepository,
+            dispatcher
+        )
+
+    @Provides
+    @Singleton
+    fun provideGetDocumentsByDeceasedIdUseCase(
+        deceasedRepository: DeceasedRepository,
+        dispatcher: CoroutineContext
+    ): GetDocumentsByDeceasedIdUseCase =
+        GetDocumentsByDeceasedIdUseCaseImpl(
+            deceasedRepository,
             dispatcher
         )
 

@@ -1,6 +1,7 @@
 package com.cibermodelo.requestmanager
 
 import com.cibermodelo.requestmanager.model.DeceasedResponse
+import com.cibermodelo.requestmanager.model.DocumentResponse
 import com.cibermodelo.requestmanager.model.FieldResponse
 import com.cibermodelo.requestmanager.model.QueryTypesResponse
 import com.cibermodelo.requestmanager.model.UserResponse
@@ -31,4 +32,9 @@ interface ApiService {
         @Query("queryTypeId") queryTypeId: Int,
         @Query("accessLevelId") accessLevelId: Int
     ) : Response<List<FieldResponse>>
+
+    @GET("deceased/documents")
+    suspend fun documentsByDeceased(
+        @Query("deceasedId") deceasedId: Int
+    ) : Response<List<DocumentResponse>>
 }

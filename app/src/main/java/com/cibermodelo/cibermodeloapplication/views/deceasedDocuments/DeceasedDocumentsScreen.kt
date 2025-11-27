@@ -1,14 +1,21 @@
-package com.cibermodelo.cibermodeloapplication.views.queryTypes
+package com.cibermodelo.cibermodeloapplication.views.deceasedDocuments
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults.cardColors
+import androidx.compose.material3.CardDefaults.cardElevation
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
@@ -17,50 +24,48 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cibermodelo.base.common.Resource
-import com.cibermodelo.base.model.AccessLevel
 import com.cibermodelo.base.model.Deceased
-import com.cibermodelo.base.model.QueryTypes
-import com.cibermodelo.base.model.Role
+import com.cibermodelo.base.model.Document
 import com.cibermodelo.cibermodeloapplication.R
 import com.cibermodelo.cibermodeloapplication.common.LoadingMessage
 import com.cibermodelo.cibermodeloapplication.ui.components.GenericCardComponent
 import com.cibermodelo.cibermodeloapplication.ui.components.MainScreenEmptyContent
 
 @Composable
-fun QueryTypesScreen(
+fun DeceasedDocumentsScreen(
     modifier: Modifier,
-    queryTypesUiState: QueryTypesUiState,
+    deceasedDocumentsUiState: DeceasedDocumentsUiState,
     deceased: Deceased,
-    queryTypeSelected: (QueryTypes) -> Unit
+    documentSelected: (Document) -> Unit
 ) {
-    when (val response = queryTypesUiState.content) {
+    when (val response = deceasedDocumentsUiState.content) {
         is Resource.Error<*> -> {
-            MainScreenEmptyContent(stringResource(R.string.query_type_list_empty))
+            MainScreenEmptyContent(stringResource(R.string.deceased_documents_empty))
         }
         is Resource.Loading<*> -> {
             LoadingMessage()
         }
         is Resource.Success<*> -> {
             response.data?.let { data ->
-                QueryTypesScreenContent(
+                DeceasedDocumentsScreenContent(
                     modifier = modifier,
                     deceased = deceased,
                     content = data,
-                    queryTypeSelected = queryTypeSelected
+                    documentSelected = documentSelected
                 )
             } ?: run {
-                MainScreenEmptyContent(stringResource(R.string.query_type_list_empty))
+                MainScreenEmptyContent(stringResource(R.string.deceased_documents_empty))
             }
         }
     }
 }
 
 @Composable
-fun QueryTypesScreenContent(
+private fun DeceasedDocumentsScreenContent(
     modifier: Modifier,
     deceased: Deceased,
-    content: List<QueryTypes>,
-    queryTypeSelected: (QueryTypes) -> Unit
+    content: List<Document>,
+    documentSelected: (Document) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -73,25 +78,43 @@ fun QueryTypesScreenContent(
             color = Black,
             text = stringResource(R.string.query_type_deceased_label)
         )
-
-        GenericCardComponent(
-            label = "${deceased.name} ${deceased.lastName}"
-        )
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp)
+                .height(100.dp),
+            colors = cardColors(White),
+            elevation = cardElevation(6.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    fontSize = 16.sp,
+                    color = Black,
+                    text = "${deceased.name} ${deceased.lastName}"
+                )
+            }
+        }
 
         Text(
             modifier = Modifier.padding(top = 12.dp),
             fontSize = 16.sp,
             color = Black,
-            text = stringResource(R.string.query_type_title)
+            text = stringResource(R.string.deceased_documents_title)
         )
 
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(top = 16.dp),
             verticalArrangement = spacedBy(8.dp),
         ) {
-            itemsIndexed(content) { index, queryType ->
-                GenericCardComponent(queryType.name) {
-                    queryTypeSelected(queryType)
+            itemsIndexed(content) { index, document ->
+                GenericCardComponent(document.name) {
+                    documentSelected(document)
                 }
             }
         }
@@ -100,7 +123,7 @@ fun QueryTypesScreenContent(
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
-private fun QueryTypesScreenContentPreview() {
+private fun DeceasedInformationScreenContentPreview() {
     val deceased = Deceased(
         id = 1,
         name = "Maria",
@@ -120,25 +143,20 @@ private fun QueryTypesScreenContentPreview() {
         severanceFund = String(),
         gender = String()
     )
-    val queryTypes = listOf(
-        QueryTypes(
-            id = 1,
-            name = "Trámites Administrativos",
-            role = Role(
-                id = 1,
-                name = "1er grado",
-                description = String()
-            ),
-            accessLevel = AccessLevel(
-                id = 3,
-                name = "Nivel 3"
-            )
+
+    val documents = listOf(
+        Document(
+            id = 0,
+            name = "Registro civil",
+            url = String(),
+            created = String()
         )
     )
-    QueryTypesScreenContent(
+
+    DeceasedDocumentsScreenContent(
         modifier = Modifier,
         deceased = deceased,
-        content = queryTypes
+        content = documents
     ) {
 
     }
