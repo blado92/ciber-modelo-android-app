@@ -42,4 +42,6 @@ enum class FieldTypeResponse {
     DESEASED_DECEASEDDATE,
     @Json(name = "deceased_gender")
     DECEASED_GENDER,
+    @Json(name = "deceased_documents")
+    DECEASED_DOCUMENTS
 }

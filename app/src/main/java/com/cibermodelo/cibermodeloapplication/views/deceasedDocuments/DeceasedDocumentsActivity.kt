@@ -1,4 +1,4 @@
-package com.cibermodelo.cibermodeloapplication.views.deceasedInformation
+package com.cibermodelo.cibermodeloapplication.views.deceasedDocuments
 
 import android.content.Context
 import android.content.Intent
@@ -11,28 +11,25 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.core.net.toUri
 import com.cibermodelo.base.model.Deceased
+import com.cibermodelo.base.model.Document
 import com.cibermodelo.cibermodeloapplication.ui.theme.CiberModeloApplicationTheme
-import com.cibermodelo.cibermodeloapplication.views.deceasedDocuments.DeceasedDocumentsActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DeceasedInformationActivity : ComponentActivity() {
+class DeceasedDocumentsActivity : ComponentActivity() {
 
     companion object {
         private const val DECEASED_INFORMATION = "deceasedInformation"
-        private const val QUERY_TYPE_ID = "queryTypeId"
-        private const val ACCESS_LEVEL_ID = "accessLevelId"
 
-        fun getIntent(context: Context, deceased: Deceased, queryTypeId: Int, accessLevelId: Int) =
-            Intent(context, DeceasedInformationActivity::class.java).apply {
+        fun getIntent(context: Context, deceased: Deceased) =
+            Intent(context, DeceasedDocumentsActivity::class.java).apply {
                 putExtra(DECEASED_INFORMATION, deceased)
-                putExtra(QUERY_TYPE_ID, queryTypeId)
-                putExtra(ACCESS_LEVEL_ID, accessLevelId)
             }
     }
 
-    private val viewModel: DeceasedInformationViewModel by viewModels { defaultViewModelProviderFactory }
+    private val viewModel: DeceasedDocumentsViewModel by viewModels { defaultViewModelProviderFactory }
     private lateinit var deceased: Deceased
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,25 +39,22 @@ class DeceasedInformationActivity : ComponentActivity() {
         setContent {
             CiberModeloApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    DeceasedInformationScreen(
+                    DeceasedDocumentsScreen(
                         modifier = Modifier.padding(innerPadding),
-                        deceasedInformationUiState = viewModel.fields,
+                        deceasedDocumentsUiState = viewModel.documents,
                         deceased = deceased,
-                        onDocumentsSelected = { onDocumentsSelected() }
+                        documentSelected = { onDocumentSelected(it) }
                     )
                 }
             }
         }
 
-        val queryTypeId = intent.getIntExtra(QUERY_TYPE_ID, 0)
-        val accessLevelId = intent.getIntExtra(ACCESS_LEVEL_ID, 0)
-        viewModel.getFieldsByQueryTypeAndAccessLevel(queryTypeId = queryTypeId, accessLevelId = accessLevelId)
+        viewModel.getDocuments(deceased.id)
     }
 
-    private fun onDocumentsSelected() {
-        startActivity(
-            DeceasedDocumentsActivity.getIntent(this, deceased)
-        )
+    private fun onDocumentSelected(document: Document) {
+        val intent = Intent(Intent.ACTION_VIEW, document.url.toUri())
+        startActivity(intent)
     }
 
 }

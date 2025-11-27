@@ -16,11 +16,13 @@ import androidx.compose.ui.unit.sp
 import com.cibermodelo.base.model.Deceased
 import com.cibermodelo.base.model.Field
 import com.cibermodelo.base.model.FieldType
+import com.cibermodelo.cibermodeloapplication.ui.components.GenericCardComponent
 
 @Composable
 fun GetFieldDeceasedComponent(
     deceased: Deceased,
-    field: Field
+    field: Field,
+    onDocumentSelected: () -> Unit
 ) {
     when (field.id) {
         FieldType.DECEASED_ADDRESS -> DeceasedFieldComponent(field.name, deceased.address)
@@ -39,6 +41,7 @@ fun GetFieldDeceasedComponent(
         FieldType.DECEASED_SEVERANCEFUND -> DeceasedFieldComponent(field.name, deceased.severanceFund)
         FieldType.DESEASED_DECEASEDDATE -> DeceasedFieldComponent(field.name, deceased.deceasedDate)
         FieldType.DECEASED_GENDER -> DeceasedFieldComponent(field.name, deceased.gender)
+        FieldType.DECEASED_DOCUMENTS -> GenericCardComponent(field.name, onDocumentSelected)
     }
 }
 

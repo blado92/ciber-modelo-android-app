@@ -28,7 +28,8 @@ import com.cibermodelo.cibermodeloapplication.ui.components.MainScreenEmptyConte
 fun DeceasedInformationScreen(
     modifier: Modifier,
     deceasedInformationUiState: DeceasedInformationUiState,
-    deceased: Deceased
+    deceased: Deceased,
+    onDocumentsSelected: () -> Unit
 ) {
     when (val response = deceasedInformationUiState.content) {
         is Resource.Error<*> -> {
@@ -42,7 +43,8 @@ fun DeceasedInformationScreen(
                 DeceasedInformationScreenContent(
                     modifier = modifier,
                     deceased = deceased,
-                    content = data
+                    content = data,
+                    onDocumentsSelected = onDocumentsSelected
                 )
             } ?: run {
                 MainScreenEmptyContent(stringResource(R.string.deceased_information_empty))
@@ -55,7 +57,8 @@ fun DeceasedInformationScreen(
 fun DeceasedInformationScreenContent(
     modifier: Modifier,
     deceased: Deceased,
-    content: List<Field>
+    content: List<Field>,
+    onDocumentsSelected: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -77,7 +80,8 @@ fun DeceasedInformationScreenContent(
             itemsIndexed(content) { index, field ->
                 GetFieldDeceasedComponent(
                     deceased,
-                    field
+                    field,
+                    onDocumentsSelected
                 )
             }
         }
@@ -134,5 +138,7 @@ private fun DeceasedInformationScreenContentPreview() {
         modifier = Modifier,
         deceased = deceased,
         content = fields
-    )
+    ) {
+
+    }
 }

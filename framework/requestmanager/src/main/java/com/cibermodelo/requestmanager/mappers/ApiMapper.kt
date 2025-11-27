@@ -3,6 +3,7 @@ package com.cibermodelo.requestmanager.mappers
 import com.cibermodelo.base.common.ResourceApi
 import com.cibermodelo.base.model.AccessLevel
 import com.cibermodelo.base.model.Deceased
+import com.cibermodelo.base.model.Document
 import com.cibermodelo.base.model.Field
 import com.cibermodelo.base.model.FieldType
 import com.cibermodelo.base.model.QueryTypes
@@ -10,6 +11,7 @@ import com.cibermodelo.base.model.Role
 import com.cibermodelo.base.model.User
 import com.cibermodelo.requestmanager.model.AccessLevelResponse
 import com.cibermodelo.requestmanager.model.DeceasedResponse
+import com.cibermodelo.requestmanager.model.DocumentResponse
 import com.cibermodelo.requestmanager.model.FieldResponse
 import com.cibermodelo.requestmanager.model.FieldTypeResponse
 import com.cibermodelo.requestmanager.model.QueryTypesResponse
@@ -97,6 +99,7 @@ fun FieldTypeResponse.toFieldType(): FieldType {
         FieldTypeResponse.DECEASED_SEVERANCEFUND -> FieldType.DECEASED_SEVERANCEFUND
         FieldTypeResponse.DESEASED_DECEASEDDATE -> FieldType.DESEASED_DECEASEDDATE
         FieldTypeResponse.DECEASED_GENDER -> FieldType.DECEASED_GENDER
+        FieldTypeResponse.DECEASED_DOCUMENTS -> FieldType.DECEASED_DOCUMENTS
     }
 }
 
@@ -106,3 +109,12 @@ fun FieldResponse.toField() = Field(
 )
 
 fun List<FieldResponse>.toFieldList() = map(FieldResponse::toField)
+
+fun DocumentResponse.toDocument() = Document(
+    id = id,
+    name = name,
+    url = url,
+    created = created
+)
+
+fun List<DocumentResponse>.toDocumentList() = map(DocumentResponse::toDocument)
