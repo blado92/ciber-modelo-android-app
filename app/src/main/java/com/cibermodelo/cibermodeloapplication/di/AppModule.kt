@@ -13,10 +13,14 @@ import com.cibermodelo.domain.usecase.GetFieldsByQueryTypeAndAccessLevelUseCase
 import com.cibermodelo.domain.usecase.GetFieldsByQueryTypeAndAccessLevelUseCaseImpl
 import com.cibermodelo.domain.usecase.GetQueryTypesByUserAndDeceasedUseCase
 import com.cibermodelo.domain.usecase.GetQueryTypesByUserAndDeceasedUseCaseImpl
+import com.cibermodelo.domain.usecase.GetUserInformationUseCase
+import com.cibermodelo.domain.usecase.GetUserInformationUseCaseImpl
 import com.cibermodelo.domain.usecase.IsUserLoggedInUseCase
 import com.cibermodelo.domain.usecase.IsUserLoggedInUseCaseImpl
 import com.cibermodelo.domain.usecase.LoginUseCase
 import com.cibermodelo.domain.usecase.LoginUseCaseImpl
+import com.cibermodelo.domain.usecase.RemoveLocalUserUseCase
+import com.cibermodelo.domain.usecase.RemoveLocalUserUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -91,6 +95,28 @@ object AppModule {
     ): GetDocumentsByDeceasedIdUseCase =
         GetDocumentsByDeceasedIdUseCaseImpl(
             deceasedRepository,
+            dispatcher
+        )
+
+    @Provides
+    @Singleton
+    fun provideGetUserInformationUseCase(
+        userRepository: UserRepository,
+        dispatcher: CoroutineContext
+    ): GetUserInformationUseCase =
+        GetUserInformationUseCaseImpl(
+            userRepository,
+            dispatcher
+        )
+
+    @Provides
+    @Singleton
+    fun provideRemoveLocalUserUseCase(
+        userRepository: UserRepository,
+        dispatcher: CoroutineContext
+    ): RemoveLocalUserUseCase =
+        RemoveLocalUserUseCaseImpl(
+            userRepository,
             dispatcher
         )
 

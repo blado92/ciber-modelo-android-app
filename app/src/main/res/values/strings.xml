@@ -18,4 +18,5 @@
     <string name="deceased_information_title">Información disponible:</string>
     <string name="deceased_documents_empty">No hay documentos disponibles para este fallecido</string>
     <string name="deceased_documents_title">Documentos disponibles:</string>
+    <string name="user_information_title">Usuario:</string>
 </resources>

@@ -20,11 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MainScreenEmptyContent(
+fun EmptyComponent(
+    modifier: Modifier = Modifier,
     label: String
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().background(White),
+        modifier = Modifier.fillMaxSize().background(White).then(modifier),
         verticalArrangement = Arrangement.Center
     ) {
         Card(
@@ -53,7 +54,7 @@ fun MainScreenEmptyContent(
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 private fun MainScreenEmptyContentPreview() {
-    MainScreenEmptyContent(
+    EmptyComponent(
         label = "No hay información disponible para este fallecido"
     )
 }

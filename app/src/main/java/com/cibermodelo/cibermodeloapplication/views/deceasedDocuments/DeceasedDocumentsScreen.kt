@@ -29,7 +29,7 @@ import com.cibermodelo.base.model.Document
 import com.cibermodelo.cibermodeloapplication.R
 import com.cibermodelo.cibermodeloapplication.common.LoadingMessage
 import com.cibermodelo.cibermodeloapplication.ui.components.GenericCardComponent
-import com.cibermodelo.cibermodeloapplication.ui.components.MainScreenEmptyContent
+import com.cibermodelo.cibermodeloapplication.ui.components.EmptyComponent
 
 @Composable
 fun DeceasedDocumentsScreen(
@@ -40,7 +40,7 @@ fun DeceasedDocumentsScreen(
 ) {
     when (val response = deceasedDocumentsUiState.content) {
         is Resource.Error<*> -> {
-            MainScreenEmptyContent(stringResource(R.string.deceased_documents_empty))
+            EmptyComponent(label = stringResource(R.string.deceased_documents_empty))
         }
         is Resource.Loading<*> -> {
             LoadingMessage()
@@ -54,7 +54,7 @@ fun DeceasedDocumentsScreen(
                     documentSelected = documentSelected
                 )
             } ?: run {
-                MainScreenEmptyContent(stringResource(R.string.deceased_documents_empty))
+                EmptyComponent(label = stringResource(R.string.deceased_documents_empty))
             }
         }
     }
@@ -113,7 +113,7 @@ private fun DeceasedDocumentsScreenContent(
             verticalArrangement = spacedBy(8.dp),
         ) {
             itemsIndexed(content) { index, document ->
-                GenericCardComponent(document.name) {
+                GenericCardComponent(label = document.name) {
                     documentSelected(document)
                 }
             }
