@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun GenericCardComponent(
+    modifier: Modifier = Modifier,
     label: String,
     onSelected: (() -> Unit)? = null
 ) {
@@ -27,7 +28,8 @@ fun GenericCardComponent(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 4.dp)
-            .height(100.dp),
+            .height(100.dp)
+            .then(modifier),
         colors = cardColors(White),
         elevation = cardElevation(6.dp),
         onClick = { onSelected?.invoke() }

@@ -24,7 +24,7 @@ import com.cibermodelo.base.model.Role
 import com.cibermodelo.cibermodeloapplication.R
 import com.cibermodelo.cibermodeloapplication.common.LoadingMessage
 import com.cibermodelo.cibermodeloapplication.ui.components.GenericCardComponent
-import com.cibermodelo.cibermodeloapplication.ui.components.MainScreenEmptyContent
+import com.cibermodelo.cibermodeloapplication.ui.components.EmptyComponent
 
 @Composable
 fun QueryTypesScreen(
@@ -35,7 +35,7 @@ fun QueryTypesScreen(
 ) {
     when (val response = queryTypesUiState.content) {
         is Resource.Error<*> -> {
-            MainScreenEmptyContent(stringResource(R.string.query_type_list_empty))
+            EmptyComponent(label = stringResource(R.string.query_type_list_empty))
         }
         is Resource.Loading<*> -> {
             LoadingMessage()
@@ -49,7 +49,7 @@ fun QueryTypesScreen(
                     queryTypeSelected = queryTypeSelected
                 )
             } ?: run {
-                MainScreenEmptyContent(stringResource(R.string.query_type_list_empty))
+                EmptyComponent(label = stringResource(R.string.query_type_list_empty))
             }
         }
     }
@@ -90,7 +90,7 @@ fun QueryTypesScreenContent(
             verticalArrangement = spacedBy(8.dp),
         ) {
             itemsIndexed(content) { index, queryType ->
-                GenericCardComponent(queryType.name) {
+                GenericCardComponent(label = queryType.name) {
                     queryTypeSelected(queryType)
                 }
             }

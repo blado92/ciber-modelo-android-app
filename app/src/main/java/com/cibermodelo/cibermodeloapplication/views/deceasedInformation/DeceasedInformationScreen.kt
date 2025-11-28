@@ -22,7 +22,7 @@ import com.cibermodelo.base.model.Field
 import com.cibermodelo.base.model.FieldType
 import com.cibermodelo.cibermodeloapplication.R
 import com.cibermodelo.cibermodeloapplication.common.LoadingMessage
-import com.cibermodelo.cibermodeloapplication.ui.components.MainScreenEmptyContent
+import com.cibermodelo.cibermodeloapplication.ui.components.EmptyComponent
 
 @Composable
 fun DeceasedInformationScreen(
@@ -33,7 +33,7 @@ fun DeceasedInformationScreen(
 ) {
     when (val response = deceasedInformationUiState.content) {
         is Resource.Error<*> -> {
-            MainScreenEmptyContent(stringResource(R.string.deceased_information_empty))
+            EmptyComponent(label = stringResource(R.string.deceased_information_empty))
         }
         is Resource.Loading<*> -> {
             LoadingMessage()
@@ -47,7 +47,7 @@ fun DeceasedInformationScreen(
                     onDocumentsSelected = onDocumentsSelected
                 )
             } ?: run {
-                MainScreenEmptyContent(stringResource(R.string.deceased_information_empty))
+                EmptyComponent(label = stringResource(R.string.deceased_information_empty))
             }
         }
     }

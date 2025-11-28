@@ -7,17 +7,33 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cibermodelo.base.common.Resource
 import com.cibermodelo.base.common.ResourceApi
+import com.cibermodelo.base.model.User
 import com.cibermodelo.domain.usecase.GetDeceasedByUserUseCase
+import com.cibermodelo.domain.usecase.GetUserInformationUseCase
+import com.cibermodelo.domain.usecase.RemoveLocalUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getDeceasedByUserUseCase: GetDeceasedByUserUseCase
+    private val getUserInformationUseCase: GetUserInformationUseCase,
+    private val getDeceasedByUserUseCase: GetDeceasedByUserUseCase,
+    private val removeLocalUserUseCase: RemoveLocalUserUseCase
 ) : ViewModel() {
 
     var deceased by mutableStateOf(MainUiState(Resource.Loading()))
+
+    var user by mutableStateOf(User())
+
+    fun init() {
+        viewModelScope.launch {
+            getUserInformationUseCase().collect {
+                user = it
+            }
+        }
+    }
 
     fun getDeceasedByUser() {
         viewModelScope.launch {
@@ -32,6 +48,12 @@ class MainViewModel @Inject constructor(
                     deceased = MainUiState(Resource.Error(response.errorCode ?: 1, response.errorMessage ?: "Error"))
                 }
             }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            removeLocalUserUseCase().collect()
         }
     }
 
